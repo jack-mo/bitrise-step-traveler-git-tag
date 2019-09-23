@@ -1,7 +1,30 @@
 #!/bin/bash
 set -ex
 
-echo "This is the value specified for the input 'example_step_input': ${example_step_input}"
+if git rev-parse "$CORE_VERSION_NAME" >/dev/null 2>&1; then
+    echo "Tag, $CORE_VERSION_NAME, already exists";
+else
+    git tag $CORE_VERSION_NAME
+fi
+
+if git rev-parse "$UI_VERSION_NAME" >/dev/null 2>&1; then
+    echo "Tag, $UI_VERSION_NAME, already exists";
+else
+    git tag $UI_VERSION_NAME
+fi
+
+if git rev-parse "$STRIPE_VERSION_NAME" >/dev/null 2>&1; then
+    echo "Tag, $STRIPE_VERSION_NAME, already exists";
+else
+    git tag $STRIPE_VERSION_NAME
+fi
+
+if git rev-parse "$APP_VERSION_NAME" >/dev/null 2>&1; then
+    echo "Tag, $APP_VERSION_NAME, already exists";
+else
+    git tag $APP_VERSION_NAME
+fi
+git push --tags
 
 #
 # --- Export Environment Variables for other Steps:
